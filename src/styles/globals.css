@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Industrial Light Palette Variables */
+    --background: #F8FAFC;
+    /* Slate-50 (Cool White) */
+    --foreground: #0F172A;
+    /* Slate-900 (Deep Charcoal) */
+  }
+
+  body {
+    /* Clean, professional light theme without forced bolding */
+    @apply antialiased bg-[#F8FAFC] text-[#0F172A];
+
+    /* Standardized rendering for professional UI */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Professional Scrollbar for Light Theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    /* Slate-100 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    /* Slate-300 */
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+    /* Slate-400 */
+  }
+}
