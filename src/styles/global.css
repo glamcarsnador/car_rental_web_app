@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply h-full bg-[#0A192F] text-slate-200;
+  }
+}
+
+/* Custom Scrollbar Styles */
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-700/50 rounded-full hover:bg-slate-600/50 transition-colors;
+  }
+
+  /* Grid Area Layouts */
+  .grid-areas-desktop {
+    grid-template-areas: 
+      "sidebar header"
+      "sidebar main"
+      "sidebar footer";
+  }
+
+  .grid-areas-mobile {
+    grid-template-areas: 
+      "header"
+      "main"
+      "footer";
+  }
+
+  .grid-in-sidebar { grid-area: sidebar; }
+  .grid-in-header { grid-area: header; }
+  .grid-in-main { grid-area: main; }
+  .grid-in-footer { grid-area: footer; }
+}

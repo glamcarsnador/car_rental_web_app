@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { cn } from '../lib/utils';
 
-export default function Clients() {
+export default function Violations() {
   const isHandshakeComplete = useAuth((state) => state.isHandshakeComplete);
   const pulseClass = !isHandshakeComplete ? "animate-pulse" : "";
 
@@ -10,16 +10,16 @@ export default function Clients() {
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <div className={cn("h-4 w-48 bg-slate-800 rounded", pulseClass)} />
-        <h1 className="text-3xl font-bold text-white tracking-tight">Clients</h1>
+        <h1 className="text-3xl font-bold text-white tracking-tight">Violations</h1>
       </div>
       
       {/* Skeleton Content */}
-      <div className={cn("bg-slate-800/20 rounded-xl border border-slate-700/50 overflow-hidden", pulseClass)}>
-        <div className="h-12 bg-slate-800 border-b border-slate-700/50" />
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="h-16 bg-slate-800/30 border-b border-slate-700/50 last:border-0" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className={cn("h-32 bg-slate-800/50 rounded-xl border border-slate-700/50", pulseClass)} />
         ))}
       </div>
+      <div className={cn("h-96 w-full bg-slate-800/50 rounded-xl border border-slate-700/50", pulseClass)} />
     </div>
   );
 }
