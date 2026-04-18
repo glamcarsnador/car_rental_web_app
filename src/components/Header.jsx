@@ -16,7 +16,7 @@ const routeTitleMap = {
   '/tools': 'System Tools'
 };
 
-export default function Header({ isSidebarOpen, setIsMobileOpen }) {
+export default function Header() {
   const location = useLocation();
   const { user, profile } = useAuth();
   
@@ -28,21 +28,13 @@ export default function Header({ isSidebarOpen, setIsMobileOpen }) {
   const currentTitle = routeTitleMap[location.pathname] || 'Overview';
 
   return (
-    <header className="grid-in-header h-20 bg-[#0A192F]/80 backdrop-blur-md border-b border-slate-800 flex items-center justify-between px-6 sticky top-0 z-30">
+    <header className="grid-in-header h-20 bg-[#0A192F]/80 backdrop-blur-md border-b border-slate-800 flex items-center justify-between px-6 sticky top-0 z-30 transition-all duration-300">
       <div className="flex items-center gap-6">
-        {/* Toggle Controls */}
-        <button 
-          onClick={() => setIsMobileOpen(true)}
-          className="lg:hidden p-2 text-slate-400 hover:bg-slate-800 rounded-lg transition-colors"
-        >
-          <Menu size={24} />
-        </button>
-
         {/* Breadcrumbs & Title Stack */}
-        <div className="flex flex-col">
-          <nav className="flex items-center gap-1 text-xs font-medium text-slate-500 uppercase tracking-widest mb-1">
+        <div className="flex flex-col transition-all duration-300">
+          <nav className="flex items-center gap-1 text-[10px] font-medium text-slate-500 uppercase tracking-[0.2em] mb-1">
             <span className="hover:text-slate-300 transition-colors cursor-pointer">ERP</span>
-            <ChevronRight size={12} />
+            <ChevronRight size={10} className="text-slate-600" />
             {pathSegments.length > 0 ? (
               pathSegments.map((segment, index) => (
                 <React.Fragment key={segment}>
@@ -52,7 +44,7 @@ export default function Header({ isSidebarOpen, setIsMobileOpen }) {
                   )}>
                     {segment.replace('-', ' ')}
                   </span>
-                  {index < pathSegments.length - 1 && <ChevronRight size={12} />}
+                  {index < pathSegments.length - 1 && <ChevronRight size={10} className="text-slate-600" />}
                 </React.Fragment>
               ))
             ) : (
@@ -76,7 +68,7 @@ export default function Header({ isSidebarOpen, setIsMobileOpen }) {
           </span>
         </div>
         
-        <div className="h-10 w-10 rounded-xl bg-slate-800 border border-slate-700 overflow-hidden flex items-center justify-center text-indigo-400">
+        <div className="h-10 w-10 rounded-xl bg-slate-800 border border-slate-700 overflow-hidden flex items-center justify-center text-indigo-400 shadow-inner">
           {profile?.avatar_url ? (
             <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
           ) : (
@@ -88,12 +80,13 @@ export default function Header({ isSidebarOpen, setIsMobileOpen }) {
 
         <button 
           onClick={handleLogout}
-          className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all border border-transparent hover:border-red-500/20"
+          className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all border border-transparent hover:border-red-500/20 group"
           title="Sign Out"
         >
-          <LogOut size={20} />
+          <LogOut size={20} className="group-hover:translate-x-0.5 transition-transform" />
         </button>
       </div>
     </header>
   );
 }
+

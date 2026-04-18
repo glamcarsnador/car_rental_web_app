@@ -7,11 +7,19 @@ export const useAuth = create((set, get) => ({
   loading: true,
   initialized: false,
   isHandshakeComplete: false,
+  isSidebarOpen: true,
+  isMobileMenuOpen: false,
 
   setUser: (user) => set({ user }),
   setProfile: (profile) => set({ profile }),
   setLoading: (loading) => set({ loading }),
   setHandshakeComplete: (status) => set({ isHandshakeComplete: status }),
+  
+  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+  setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
+  toggleMobileMenu: () => set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
+  setMobileMenuOpen: (isOpen) => set({ isMobileMenuOpen: isOpen }),
+
 
   initialize: async () => {
     if (get().initialized) return;

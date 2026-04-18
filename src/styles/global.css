@@ -2,44 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --sidebar-width: 280px;
+  --shoji-curve: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Toggled by the parent container in MainLayout */
+.sidebar-collapsed {
+  --sidebar-width: 80px;
+}
+
 @layer base {
   html, body {
-    @apply h-full bg-[#0A192F] text-slate-200;
+    @apply h-full antialiased;
+    background-color: #0A192F;
+    color: #E2E8F0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
-/* Custom Scrollbar Styles */
 @layer utilities {
+  /* THE SHOJI ENGINE: Forces GPU acceleration and smooth interpolation */
+  .shoji-slide {
+    transition: width 500ms var(--shoji-curve), 
+                padding-left 500ms var(--shoji-curve),
+                transform 500ms var(--shoji-curve) !important;
+    will-change: width, padding-left;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
-    height: 6px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    background: transparent;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-slate-700/50 rounded-full hover:bg-slate-600/50 transition-colors;
+    background: #1E293B;
+    border-radius: 10px;
   }
 
-  /* Grid Area Layouts */
-  .grid-areas-desktop {
-    grid-template-areas: 
-      "sidebar header"
-      "sidebar main"
-      "sidebar footer";
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #334155;
   }
-
-  .grid-areas-mobile {
-    grid-template-areas: 
-      "header"
-      "main"
-      "footer";
-  }
-
-  .grid-in-sidebar { grid-area: sidebar; }
-  .grid-in-header { grid-area: header; }
-  .grid-in-main { grid-area: main; }
-  .grid-in-footer { grid-area: footer; }
 }
