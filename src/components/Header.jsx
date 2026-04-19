@@ -71,16 +71,20 @@ export default function Header() {
 
       {/* Left Section: Branding */}
       <div className="flex items-center gap-4 h-full">
-        {/* The Slot: h-[94%] creates the tiniest possible top/bottom gap */}
-        <div className="h-[94%] w-auto bg-module rounded-lg flex items-center justify-center overflow-hidden px-2 shadow-sm transition-all">
-          <img src={logo} alt="Glam Cars Logo" className="h-full w-auto object-contain" />
+        {/* Add 'shrink-0' here to lock the logo size */}
+        <div className="h-[94%] w-auto shrink-0 bg-module rounded-lg flex items-center justify-center overflow-hidden px-2 shadow-sm transition-all">
+          <img
+            src={logo}
+            alt="Glam Cars Logo"
+            className="h-full w-auto object-contain"
+          />
         </div>
-        {/* Page Title */}
-        <nav className="hidden lg:flex items-center text-xs font-bold text-muted uppercase tracking-widest">
-          <span className="text-main">{currentTitle}</span>
+
+        {/* Page Title - Add 'truncate' to handle long titles gracefully */}
+        <nav className="hidden lg:flex items-center text-xs font-bold text-muted uppercase tracking-widest min-w-0">
+          <span className="text-main truncate">{currentTitle}</span>
         </nav>
       </div>
-
       {/* Right Section: Controls */}
       <div className="flex items-center gap-3">
 
