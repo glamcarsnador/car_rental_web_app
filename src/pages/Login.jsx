@@ -7,14 +7,16 @@ export default function Login() {
   const { t, language } = useTranslation();
 
   const handleGoogleLogin = async () => {
+    // Use current origin + the /car_rental_web_app/ path
+    const currentPath = window.location.origin + import.meta.env.BASE_URL;
+
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: currentPath
       }
     });
   };
-
   return (
     <div className="min-h-screen bg-body flex items-center justify-center p-4 transition-colors duration-500">
       <div className="max-w-md w-full space-y-8 bg-module/50 p-8 rounded-2xl border border-border backdrop-blur-sm shadow-2xl">
@@ -35,8 +37,8 @@ export default function Login() {
         </button>
 
         <p className="text-center text-xs text-muted font-medium">
-          {language === 'EN' 
-            ? 'This system is restricted to whitelisted personnel only.' 
+          {language === 'EN'
+            ? 'This system is restricted to whitelisted personnel only.'
             : 'هذا النظام مخصص للموظفين المصرح لهم فقط.'}
         </p>
       </div>
