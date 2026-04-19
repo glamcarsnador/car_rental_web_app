@@ -14,10 +14,10 @@ export default function AuthGate({ children }) {
 
   if (loading || !initialized) {
     return (
-      <div className="min-h-screen bg-[#0A192F] flex items-center justify-center">
+      <div className="min-h-screen bg-body-bg flex items-center justify-center transition-colors duration-500">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-slate-400 font-medium animate-pulse">Establishing Secure Session...</p>
+          <div className="w-12 h-12 border-4 border-accent-indigo border-t-transparent rounded-full animate-spin" />
+          <p className="text-muted-text font-medium animate-pulse">Establishing Secure Session...</p>
         </div>
       </div>
     );

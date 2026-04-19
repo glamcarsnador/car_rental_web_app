@@ -8,23 +8,27 @@
   --header-h: 80px;
 
   /* Industrial Palette - Default (Dark) */
-  --bg-header: #0F172A; /* Slate-900 */
-  --bg-body: #0A192F;   /* Neutral/Deep Blue */
-  --bg-module: #1E293B; /* Slate-800 */
-  --text-main: #E2E8F0; /* Slate-200 */
-  --text-muted: #94A3B8; /* Slate-400 */
-  --border-color: #1E293B; /* Slate-800 */
-  --accent: #6366F1;    /* Indigo-500 */
+  --bg-header: #0F172A; 
+  --bg-body: #0A192F;   
+  --bg-sidebar: #0F172A; 
+  --bg-module: #1E293B; 
+  --bg-card: #112240;
+  --text-main: #E2E8F0; 
+  --text-muted: #94A3B8; 
+  --border-color: #1E293B; 
+  --accent: #6366F1;    
 }
 
 /* Light Mode Overrides */
 .light {
-  --bg-header: #F1F5F9; /* Slate-100 */
+  --bg-header: #F1F5F9; 
   --bg-body: #FFFFFF;
-  --bg-module: #E2E8F0; /* Slate-200 */
-  --text-main: #0F172A; /* Slate-900 */
-  --text-muted: #64748B; /* Slate-500 */
-  --border-color: #CBD5E1; /* Slate-300 */
+  --bg-sidebar: #F8FAFC;
+  --bg-module: #E2E8F0; 
+  --bg-card: #F1F5F9;
+  --text-main: #0F172A; 
+  --text-muted: #64748B; 
+  --border-color: #CBD5E1; 
 }
 
 /* Toggled by the parent container in MainLayout */

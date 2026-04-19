@@ -13,7 +13,7 @@ export default function MainLayout() {
 
   return (
     <div className={cn(
-      "min-h-screen bg-[#0A192F] text-slate-200 font-sans transition-all",
+      "min-h-screen bg-body-bg text-main-text font-sans transition-all",
       !isSidebarOpen && "sidebar-collapsed"
     )}>
       {/* Sidebar is fixed to the left */}
