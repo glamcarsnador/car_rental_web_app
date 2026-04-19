@@ -7,24 +7,27 @@ export default function Login() {
   const { t, language } = useTranslation();
 
   const handleGoogleLogin = async () => {
-    // We manually construct the path to ensure the sub-folder is NEVER missed
-    const siteUrl = 'https://glamcarsnador.github.io/car_rental_web_app/';
+    const origin = window.location.origin;
+    // We add the trailing slash specifically because Supabase is strict about matching
+    const targetRedirect = `${origin}/car_rental_web_app/`;
 
-    // Use a ternary to check if you are on localhost or production
-    const targetRedirect = window.location.hostname === 'localhost'
-      ? 'http://localhost:3000/car_rental_web_app/'
-      : siteUrl;
+    console.log("SENDING TO SUPABASE WITH REDIRECT:", targetRedirect);
 
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
+        // Force the redirect to the current domain
         redirectTo: targetRedirect,
+        // This ensures the redirect is handled as a flow, not a site default
+        skipBrowserRedirect: false,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
         },
       }
     });
+
+    if (error) console.error("OAuth Error:", error.message);
   };
   return (
     <div className="min-h-screen bg-body flex items-center justify-center p-4 transition-colors duration-500">
@@ -39,13 +42,19 @@ export default function Login() {
 
         <button
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 bg-card hover:bg-module text-main font-bold py-4 px-4 rounded-xl transition-all duration-200 border border-border shadow-lg"
+          className="w-full flex items-center justify-center gap-3 bg-card hover:bg-module text-main font-bold py-4 px-4 rounded-xl transition-all duration-200 border border-border shadow-lg group"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-6 h-6" />
-          {language === 'EN' ? 'Sign in with Google' : 'تسجيل الدخول باستخدام جوجل'}
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            className="w-6 h-6 transition-transform group-hover:scale-110"
+          />
+          <span>
+            {language === 'EN' ? 'Sign in with Google' : 'تسجيل الدخول باستخدام جوجل'}
+          </span>
         </button>
 
-        <p className="text-center text-xs text-muted font-medium">
+        <p className="text-center text-xs text-muted font-medium leading-relaxed">
           {language === 'EN'
             ? 'This system is restricted to whitelisted personnel only.'
             : 'هذا النظام مخصص للموظفين المصرح لهم فقط.'}

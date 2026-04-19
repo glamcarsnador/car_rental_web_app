@@ -5,6 +5,7 @@ import {
   Moon,
   Sun,
   Globe,
+  Menu,
   Coins,
   LogOut,
   User,
