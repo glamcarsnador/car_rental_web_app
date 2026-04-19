@@ -7,13 +7,22 @@ export default function Login() {
   const { t, language } = useTranslation();
 
   const handleGoogleLogin = async () => {
-    // Use current origin + the /car_rental_web_app/ path
-    const currentPath = window.location.origin + import.meta.env.BASE_URL;
+    // We manually construct the path to ensure the sub-folder is NEVER missed
+    const siteUrl = 'https://glamcarsnador.github.io/car_rental_web_app/';
+
+    // Use a ternary to check if you are on localhost or production
+    const targetRedirect = window.location.hostname === 'localhost'
+      ? 'http://localhost:3000/car_rental_web_app/'
+      : siteUrl;
 
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: currentPath
+        redirectTo: targetRedirect,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       }
     });
   };
