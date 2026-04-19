@@ -5,6 +5,26 @@
 :root {
   --sidebar-width: 280px;
   --shoji-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --header-h: 80px;
+
+  /* Industrial Palette - Default (Dark) */
+  --bg-header: #0F172A; /* Slate-900 */
+  --bg-body: #0A192F;   /* Neutral/Deep Blue */
+  --bg-module: #1E293B; /* Slate-800 */
+  --text-main: #E2E8F0; /* Slate-200 */
+  --text-muted: #94A3B8; /* Slate-400 */
+  --border-color: #1E293B; /* Slate-800 */
+  --accent: #6366F1;    /* Indigo-500 */
+}
+
+/* Light Mode Overrides */
+.light {
+  --bg-header: #F1F5F9; /* Slate-100 */
+  --bg-body: #FFFFFF;
+  --bg-module: #E2E8F0; /* Slate-200 */
+  --text-main: #0F172A; /* Slate-900 */
+  --text-muted: #64748B; /* Slate-500 */
+  --border-color: #CBD5E1; /* Slate-300 */
 }
 
 /* Toggled by the parent container in MainLayout */
@@ -15,10 +35,11 @@
 @layer base {
   html, body {
     @apply h-full antialiased;
-    background-color: #0A192F;
-    color: #E2E8F0;
+    background-color: var(--bg-body);
+    color: var(--text-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
   }
 }

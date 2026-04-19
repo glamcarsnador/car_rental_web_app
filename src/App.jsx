@@ -14,8 +14,14 @@ import Clients from './pages/clients';
 import Violations from './pages/Violations';
 import Finances from './pages/Finances';
 import Tools from './pages/tools';
+import { useConfigStore } from './hooks/useConfigStore';
 
 export default function App() {
+  // Initialize configuration (Theme/Persistence)
+  React.useEffect(() => {
+    useConfigStore.getState().initTheme();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
