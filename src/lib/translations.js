@@ -35,13 +35,13 @@ export const translations = {
   AR: {
     // Navigation
     dashboard: 'لوحة القيادة',
-    gantt: 'تقويم غانت',
+    gantt: 'التقويم',
     reservations: 'الحجوزات',
-    cars: 'إدارة الأسطول',
+    cars: 'الأسطول',
     clients: 'العملاء',
     violations: 'المخالفات',
     finances: 'المالية',
-    tools: 'أدوات النظام',
+    tools: 'أدوات',
 
     // Header
     overview: 'نظرة عامة',
