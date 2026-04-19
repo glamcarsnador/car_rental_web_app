@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { 
-  Moon, 
-  Sun, 
-  Globe, 
-  Coins, 
+import {
+  Moon,
+  Sun,
+  Globe,
+  Coins,
   LogOut,
-  User
+  User,
+  ChevronDown
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAuth } from '../hooks/useAuth';
@@ -32,16 +33,32 @@ export default function Header() {
   const location = useLocation();
   const { user, profile } = useAuth();
   const { t } = useTranslation();
-  
-  // State from our new stores
+
+  // State for Click-based Dropdown
+  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+  const currencyRef = useRef(null);
+
   const { currentTime, isSynced } = useTimeStore();
   const { theme, toggleTheme, language, toggleLanguage } = useConfigStore();
   const { selectedCurrency, setSelectedCurrency, fetchRates } = useCurrencyStore();
 
-  // Initialize background tasks
   useEffect(() => {
     initTimeHeartbeat();
     fetchRates();
+
+    // Correctly handle clicking outside the dropdown
+    const handleClickOutside = (event) => {
+      if (currencyRef.current && !currencyRef.current.contains(event.target)) {
+        setIsCurrencyOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Fixed cleanup function to prevent "document.remove" error
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleLogout = async () => {
@@ -53,8 +70,8 @@ export default function Header() {
 
   return (
     <header className="h-[var(--header-h)] bg-header border-b border-border flex items-center justify-between px-6 sticky top-0 z-50 shoji-slide transition-colors duration-300 shadow-md">
-      
-      {/* Left: Logo & Breadcrumbs */}
+
+      {/* Left Section: Branding */}
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center font-black text-white text-xl shadow-lg shadow-accent/20">
@@ -73,9 +90,9 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Right: Integrated Control Cluster */}
+      {/* Right Section: Controls */}
       <div className="flex items-center gap-3">
-        
+
         {/* The Morocco Clock Module */}
         <div className="bg-module border border-border px-4 py-1.5 rounded-xl flex flex-col items-center justify-center min-w-[120px] transition-colors">
           <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5">
@@ -85,7 +102,7 @@ export default function Header() {
             {format(currentTime, 'HH:mm')}
           </span>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <div className={cn("w-1 h-1 rounded-full", isSynced ? "bg-success" : "bg-warning animate-pulse")} />
+            <div className={cn("w-1.5 h-1.5 rounded-full", isSynced ? "bg-success" : "bg-warning animate-pulse")} />
             <span className="text-[9px] font-bold text-muted uppercase">{t('morocco')}</span>
           </div>
         </div>
@@ -93,7 +110,7 @@ export default function Header() {
         {/* Action Toggles Cluster */}
         <div className="flex items-center gap-1 bg-module/50 p-1 rounded-xl border border-border">
           {/* Theme Toggle */}
-          <button 
+          <button
             onClick={toggleTheme}
             className="p-2 text-muted hover:text-accent hover:bg-module rounded-lg transition-all"
             title={t('theme_toggle')}
@@ -102,41 +119,61 @@ export default function Header() {
           </button>
 
           {/* Language Toggle */}
-          <button 
+          <button
             onClick={toggleLanguage}
             className="px-2 py-1.5 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-1.5"
             title={t('language_toggle')}
           >
             <Globe size={16} />
-            <span className="text-[10px] font-bold">{language}</span>
+            <span className="text-[10px] font-bold uppercase">{language}</span>
           </button>
 
-          {/* Currency Toggle */}
-          <div className="relative group/curr">
-             <button 
-              className="px-2 py-1.5 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-1.5"
+          {/* Opaque Click-Based Currency Dropdown */}
+          <div className="relative" ref={currencyRef}>
+            <button
+              onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
+              className={cn(
+                "px-2 py-1.5 rounded-lg transition-all flex items-center gap-1.5",
+                isCurrencyOpen ? "bg-accent/10 text-accent" : "text-muted hover:text-accent hover:bg-module"
+              )}
             >
               <Coins size={16} />
               <span className="text-[10px] font-bold">{selectedCurrency}</span>
+              <ChevronDown size={12} className={cn("transition-transform duration-200", isCurrencyOpen && "rotate-180")} />
             </button>
-            
-            {/* Simple Dropdown for Currency */}
-            <div className="absolute right-0 top-full mt-1 bg-header border border-border rounded-lg shadow-2xl opacity-0 group-hover/curr:opacity-100 pointer-events-none group-hover/curr:pointer-events-auto transition-all translate-y-2 group-hover/curr:translate-y-0 z-50 p-1 min-w-[80px]">
-              {['MAD', 'EUR', 'USD'].map(curr => (
-                <button
-                  key={curr}
-                  onClick={() => setSelectedCurrency(curr)}
-                  className={cn(
-                    "w-full text-left px-3 py-1.5 text-[10px] font-bold rounded-md transition-colors",
-                    selectedCurrency === curr 
-                      ? "bg-accent/10 text-accent" 
-                      : "text-muted hover:bg-module hover:text-main"
-                  )}
-                >
-                  {curr}
-                </button>
-              ))}
-            </div>
+
+            {/* Opaque Dropdown Menu */}
+            {isCurrencyOpen && (
+              <div
+                className={cn(
+                  "absolute right-0 top-full mt-2 min-w-[100px] z-[70] p-1",
+                  "rounded-xl border border-border shadow-2xl",
+                  "animate-in fade-in zoom-in-95 duration-200",
+                  "bg-header" // Ensure this is definitely here
+                )}
+                /* Inline style as a safety fallback to your variable */
+                style={{ backgroundColor: 'var(--bg-header)' }}
+              >
+                {['MAD', 'EUR', 'USD'].map(curr => (
+                  <button
+                    key={curr}
+                    onClick={() => {
+                      setSelectedCurrency(curr);
+                      setIsCurrencyOpen(false);
+                    }}
+                    className={cn(
+                      "w-full text-left px-3 py-2 text-[10px] font-bold rounded-lg transition-colors flex items-center justify-between",
+                      selectedCurrency === curr
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted hover:bg-module hover:text-main"
+                    )}
+                  >
+                    {curr}
+                    {selectedCurrency === curr && <div className="w-1 h-1 rounded-full bg-accent" />}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -150,18 +187,18 @@ export default function Header() {
               {profile?.is_whitelisted ? t('verified') : t('agent')}
             </span>
           </div>
-          
+
           <button className="h-10 w-10 rounded-xl bg-module border border-border flex items-center justify-center text-accent hover:border-accent/50 transition-all shadow-inner overflow-hidden">
             {profile?.avatar_url ? (
-               <img src={profile.avatar_url} className="w-full h-full object-cover" alt="" />
+              <img src={profile.avatar_url} className="w-full h-full object-cover" alt="" />
             ) : (
               <User size={20} />
             )}
           </button>
 
-          <button 
+          <button
             onClick={handleLogout}
-            className="p-2 text-muted hover:text-danger/80 transition-colors"
+            className="p-2 text-muted hover:text-danger transition-colors"
             title={t('logout')}
           >
             <LogOut size={18} />

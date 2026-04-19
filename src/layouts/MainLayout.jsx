@@ -24,7 +24,7 @@ export default function MainLayout() {
 
   return (
     <div className={cn(
-      "min-h-screen bg-body text-main font-sans transition-colors duration-300",
+      "min-h-screen bg-body text-main font-sans", // SNAPPY
       !isSidebarOpen && "sidebar-collapsed"
     )}>
       {/* Sidebar is fixed to the left */}
