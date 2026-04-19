@@ -101,10 +101,13 @@ export default function Sidebar() {
         isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none invisible"
       )}>
         <FocusTrap active={isMobileMenuOpen}>
-          <div className={cn(
-            "bg-sidebar h-full shadow-2xl transition-transform duration-300 ease-in-out w-[280px]",
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          )}>
+          <div
+            className={cn(
+              "bg-sidebar h-full shadow-2xl transition-transform duration-300 ease-in-out",
+              isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+            )}
+            style={{ width: 'var(--sidebar-width)' }}
+          >
             <NavContent mobile />
           </div>
         </FocusTrap>

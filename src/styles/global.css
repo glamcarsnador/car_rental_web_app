@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --sidebar-width: 280px;
+  --sidebar-width: 240px;
   --shoji-curve: cubic-bezier(0.4, 0, 0.2, 1);
   --header-h: 80px;
 
