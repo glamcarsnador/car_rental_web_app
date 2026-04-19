@@ -23,7 +23,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/car_rental_web_app/">
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
