@@ -17,6 +17,11 @@ export default {
         muted: 'var(--text-muted)',
         border: 'var(--border-main)',
         accent: 'var(--accent)',
+
+        // State & Action Accents
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        danger: 'var(--danger)',
       },
       fontSize: {
         'h1': ['2rem', { lineHeight: '1.2', fontWeight: '800' }],

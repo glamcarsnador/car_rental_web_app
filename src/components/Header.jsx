@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-  Moon,
-  Sun,
-  Globe,
-  Coins,
+import { 
+  Moon, 
+  Sun, 
+  Globe, 
+  Coins, 
   LogOut,
   User
 } from 'lucide-react';
@@ -32,7 +32,7 @@ export default function Header() {
   const location = useLocation();
   const { user, profile } = useAuth();
   const { t } = useTranslation();
-
+  
   // State from our new stores
   const { currentTime, isSynced } = useTimeStore();
   const { theme, toggleTheme, language, toggleLanguage } = useConfigStore();
@@ -53,6 +53,7 @@ export default function Header() {
 
   return (
     <header className="h-[var(--header-h)] bg-header border-b border-border flex items-center justify-between px-6 sticky top-0 z-50 shoji-slide transition-colors duration-300 shadow-md">
+      
       {/* Left: Logo & Breadcrumbs */}
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-3">
@@ -74,7 +75,7 @@ export default function Header() {
 
       {/* Right: Integrated Control Cluster */}
       <div className="flex items-center gap-3">
-
+        
         {/* The Morocco Clock Module */}
         <div className="bg-module border border-border px-4 py-1.5 rounded-xl flex flex-col items-center justify-center min-w-[120px] transition-colors">
           <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5">
@@ -84,7 +85,7 @@ export default function Header() {
             {format(currentTime, 'HH:mm')}
           </span>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <div className={cn("w-1 h-1 rounded-full", isSynced ? "bg-emerald-500" : "bg-amber-500 animate-pulse")} />
+            <div className={cn("w-1 h-1 rounded-full", isSynced ? "bg-success" : "bg-warning animate-pulse")} />
             <span className="text-[9px] font-bold text-muted uppercase">{t('morocco')}</span>
           </div>
         </div>
@@ -92,7 +93,7 @@ export default function Header() {
         {/* Action Toggles Cluster */}
         <div className="flex items-center gap-1 bg-module/50 p-1 rounded-xl border border-border">
           {/* Theme Toggle */}
-          <button
+          <button 
             onClick={toggleTheme}
             className="p-2 text-muted hover:text-accent hover:bg-module rounded-lg transition-all"
             title={t('theme_toggle')}
@@ -101,7 +102,7 @@ export default function Header() {
           </button>
 
           {/* Language Toggle */}
-          <button
+          <button 
             onClick={toggleLanguage}
             className="px-2 py-1.5 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-1.5"
             title={t('language_toggle')}
@@ -112,13 +113,13 @@ export default function Header() {
 
           {/* Currency Toggle */}
           <div className="relative group/curr">
-            <button
+             <button 
               className="px-2 py-1.5 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-1.5"
             >
               <Coins size={16} />
               <span className="text-[10px] font-bold">{selectedCurrency}</span>
             </button>
-
+            
             {/* Simple Dropdown for Currency */}
             <div className="absolute right-0 top-full mt-1 bg-header border border-border rounded-lg shadow-2xl opacity-0 group-hover/curr:opacity-100 pointer-events-none group-hover/curr:pointer-events-auto transition-all translate-y-2 group-hover/curr:translate-y-0 z-50 p-1 min-w-[80px]">
               {['MAD', 'EUR', 'USD'].map(curr => (
@@ -127,8 +128,8 @@ export default function Header() {
                   onClick={() => setSelectedCurrency(curr)}
                   className={cn(
                     "w-full text-left px-3 py-1.5 text-[10px] font-bold rounded-md transition-colors",
-                    selectedCurrency === curr
-                      ? "bg-accent/10 text-accent"
+                    selectedCurrency === curr 
+                      ? "bg-accent/10 text-accent" 
                       : "text-muted hover:bg-module hover:text-main"
                   )}
                 >
@@ -149,18 +150,18 @@ export default function Header() {
               {profile?.is_whitelisted ? t('verified') : t('agent')}
             </span>
           </div>
-
+          
           <button className="h-10 w-10 rounded-xl bg-module border border-border flex items-center justify-center text-accent hover:border-accent/50 transition-all shadow-inner overflow-hidden">
             {profile?.avatar_url ? (
-              <img src={profile.avatar_url} className="w-full h-full object-cover" alt="" />
+               <img src={profile.avatar_url} className="w-full h-full object-cover" alt="" />
             ) : (
               <User size={20} />
             )}
           </button>
 
-          <button
+          <button 
             onClick={handleLogout}
-            className="p-2 text-muted hover:text-red-400 transition-colors"
+            className="p-2 text-muted hover:text-danger/80 transition-colors"
             title={t('logout')}
           >
             <LogOut size={18} />

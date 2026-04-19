@@ -13,8 +13,8 @@ export default function Unauthorized() {
 
   return (
     <div className="min-h-screen bg-body flex items-center justify-center p-4 transition-colors duration-500">
-      <div className="max-w-md w-full text-center space-y-6 bg-module/50 p-10 rounded-2xl border border-red-500/20 backdrop-blur-sm shadow-2xl">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 text-red-500 mb-4">
+      <div className="max-w-md w-full text-center space-y-6 bg-module/50 p-10 rounded-2xl border border-danger/20 backdrop-blur-sm shadow-2xl">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-danger/10 text-danger mb-4">
           <ShieldAlert size={48} />
         </div>
         <div className="space-y-2">

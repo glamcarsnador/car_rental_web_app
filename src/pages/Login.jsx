@@ -28,7 +28,7 @@ export default function Login() {
 
         <button
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-4 px-4 rounded-xl transition-all duration-200 shadow-lg"
+          className="w-full flex items-center justify-center gap-3 bg-card hover:bg-module text-main font-bold py-4 px-4 rounded-xl transition-all duration-200 border border-border shadow-lg"
         >
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-6 h-6" />
           {language === 'EN' ? 'Sign in with Google' : 'تسجيل الدخول باستخدام جوجل'}

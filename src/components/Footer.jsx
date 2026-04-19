@@ -14,14 +14,14 @@ export default function Footer() {
           <span>Supabase</span>
         </div>
         <div className="flex items-center gap-2 text-muted uppercase tracking-widest font-semibold">
-          <Zap size={14} className="text-amber-500/50" />
+          <Zap size={14} className="text-warning/50" />
           <span>Vite</span>
         </div>
       </div>
 
       <div className="flex items-center gap-4 text-muted">
         <div className="flex items-center gap-1.5 border border-border rounded-full px-2 py-0.5 bg-module/50">
-          <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+          <div className="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
           <span className="font-mono">Live v2.4</span>
         </div>
         <span className="hidden sm:inline font-medium">© {currentYear} Glam Cars ERP - {t('morocco')}</span>

@@ -17,6 +17,11 @@
   --text-muted: #64748B; 
   --border-main: #E2E8F0; 
   --accent: #6366F1;    
+
+  /* State Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
 }
 
 /* Dark Mode Overrides */
@@ -29,6 +34,11 @@
   --text-main: #F1F5F9; 
   --text-muted: #94A3B8; 
   --border-main: #1E293B; 
+
+  /* Darker State Colors for better contrast if needed */
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
 }
 
 /* Toggled by the parent container in MainLayout */
@@ -47,14 +57,13 @@
     overflow-x: hidden;
   }
 
-header {
+  header {
     top: 0;
     margin-top: -1px; 
     padding-top: 1px;
-    /* This ensures the header background is always solid */
     background-color: var(--bg-header); 
   }  
-  
+
   /* Standard Scrollbar Theming */
   * {
     scrollbar-width: thin;

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useConfigStore } from '../hooks/useConfigStore';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,6 +11,16 @@ export default function MainLayout() {
   const isSidebarOpen = useAuth((state) => state.isSidebarOpen);
   const isMobileMenuOpen = useAuth((state) => state.isMobileMenuOpen);
   const setMobileMenuOpen = useAuth((state) => state.setMobileMenuOpen);
+  const theme = useConfigStore((state) => state.theme);
+
+  // Robust HTML Class Sync
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   return (
     <div className={cn(
@@ -21,12 +32,11 @@ export default function MainLayout() {
 
       {/* Main Container slides using padding */}
       <div
-        className="flex flex-col min-h-screen shoji-slide relative z-10" // Added z-10 here
+        className="flex flex-col min-h-screen shoji-slide relative z-10"
         style={{ paddingLeft: 'var(--sidebar-width)' }}
       >
         <Header />
 
-        {/* REMOVED 'relative z-0' from main below */}
         <main className="flex-1 p-6 lg:p-10 overflow-x-hidden overflow-y-auto custom-scrollbar">
           <div className="max-w-[1600px] mx-auto w-full">
             <Outlet />
@@ -39,7 +49,7 @@ export default function MainLayout() {
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[60] lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
