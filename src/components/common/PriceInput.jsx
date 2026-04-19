@@ -11,9 +11,9 @@ export default function PriceInput({ value, onChange, placeholder = "0.00", clas
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-slate-900/50 dark:bg-slate-900/50 light:bg-slate-100 border border-slate-700 dark:border-slate-700 light:border-slate-300 rounded-lg py-2.5 pl-4 pr-12 text-sm font-medium focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-600"
+        className="w-full bg-module border border-border rounded-lg py-2.5 pl-4 pr-12 text-sm font-medium focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all placeholder:text-muted/50"
       />
-      <div className="absolute right-3 px-2 py-1 rounded bg-slate-800 dark:bg-slate-800 light:bg-slate-200 border border-slate-700 dark:border-slate-700 light:border-slate-300 text-[10px] font-bold text-slate-400 dark:text-slate-400 light:text-slate-600 pointer-events-none group-focus-within:text-indigo-400 transition-colors">
+      <div className="absolute right-3 px-2 py-1 rounded bg-module border border-border text-[10px] font-bold text-muted pointer-events-none group-focus-within:text-accent transition-colors">
         DH
       </div>
     </div>

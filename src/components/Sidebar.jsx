@@ -36,12 +36,12 @@ export default function Sidebar() {
   const { t } = useTranslation();
 
   const NavContent = ({ mobile = false }) => (
-    <div className="flex flex-col h-full bg-header-bg relative z-50 overflow-hidden transition-colors duration-300">
+    <div className="flex flex-col h-full bg-sidebar relative z-50 overflow-hidden transition-colors duration-300">
       {/* Stationary Burger Button */}
       <div className="h-20 flex items-center shrink-0">
         <button
           onClick={mobile ? toggleMobileMenu : toggleSidebar}
-          className="w-20 h-20 flex items-center justify-center text-muted-text hover:text-main-text hover:bg-module-bg transition-colors focus:outline-none"
+          className="w-20 h-20 flex items-center justify-center text-muted hover:text-main hover:bg-module transition-colors focus:outline-none"
         >
           <Menu size={24} />
         </button>
@@ -59,8 +59,8 @@ export default function Sidebar() {
                 className={({ isActive }) => cn(
                   "flex items-center h-12 px-4 rounded-xl transition-colors duration-200",
                   isActive
-                    ? "bg-accent-indigo/10 text-accent-indigo font-semibold"
-                    : "text-muted-text hover:bg-module-bg hover:text-main-text"
+                    ? "bg-accent/10 text-accent font-semibold"
+                    : "text-muted hover:bg-module hover:text-main"
                 )}
               >
                 <item.icon size={20} className="shrink-0" />
@@ -74,7 +74,7 @@ export default function Sidebar() {
 
               {/* Tooltip for Collapsed State */}
               {!isSidebarOpen && !mobile && (
-                <div className="fixed left-20 px-3 py-2 bg-module-bg text-main-text text-xs rounded-lg border border-border-main opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-[60] ml-2 shadow-xl">
+                <div className="fixed left-20 px-3 py-2 bg-module text-main text-xs rounded-lg border border-border opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-[60] ml-2 shadow-xl">
                   {label}
                 </div>
               )}
@@ -89,7 +89,7 @@ export default function Sidebar() {
     <>
       {/* Desktop/Tablet Base */}
       <aside
-        className="fixed left-0 top-0 bottom-0 z-50 hidden lg:block border-r border-border-main shoji-slide overflow-hidden transition-colors"
+        className="fixed left-0 top-0 bottom-0 z-50 hidden lg:block border-r border-border shoji-slide overflow-hidden transition-colors"
         style={{ width: 'var(--sidebar-width)' }}
       >
         <NavContent />
@@ -102,7 +102,7 @@ export default function Sidebar() {
       )}>
         <FocusTrap active={isMobileMenuOpen}>
           <div className={cn(
-            "bg-header-bg h-full shadow-2xl transition-transform duration-300 ease-in-out w-[280px]",
+            "bg-sidebar h-full shadow-2xl transition-transform duration-300 ease-in-out w-[280px]",
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           )}>
             <NavContent mobile />

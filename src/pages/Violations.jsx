@@ -11,12 +11,12 @@ export default function Violations() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <div className={cn("h-4 w-48 bg-module-bg rounded", pulseClass)} />
-        <h1 className="text-3xl font-bold text-main-text tracking-tight">{t('violations')}</h1>
+        <div className={cn("h-4 w-48 bg-module rounded", pulseClass)} />
+        <h1 className="text-3xl font-bold text-main tracking-tight">{t('violations')}</h1>
       </div>
       
       {/* Skeleton Content */}
-      <div className={cn("h-[400px] w-full bg-module-bg/50 rounded-xl border border-border-main flex items-center justify-center text-muted-text font-medium", pulseClass)}>
+      <div className={cn("h-[400px] w-full bg-module/50 rounded-xl border border-border flex items-center justify-center text-muted font-medium", pulseClass)}>
         {!isHandshakeComplete ? t('handshake') : "Ready to Load Violation Reports"}
       </div>
     </div>

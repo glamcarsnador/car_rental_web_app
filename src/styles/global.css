@@ -7,28 +7,28 @@
   --shoji-curve: cubic-bezier(0.4, 0, 0.2, 1);
   --header-h: 80px;
 
-  /* Industrial Palette - Default (Dark) */
-  --bg-header: #0F172A; 
-  --bg-body: #0A192F;   
-  --bg-sidebar: #0F172A; 
-  --bg-module: #1E293B; 
-  --bg-card: #112240;
-  --text-main: #E2E8F0; 
-  --text-muted: #94A3B8; 
-  --border-color: #1E293B; 
+  /* Industrial Palette - Light Mode (Source of Truth) */
+  --bg-body: #F8FAFC; 
+  --bg-sidebar: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --bg-module: #E2E8F0; 
+  --bg-card: #FFFFFF;
+  --text-main: #0F172A; 
+  --text-muted: #64748B; 
+  --border-main: #E2E8F0; 
   --accent: #6366F1;    
 }
 
-/* Light Mode Overrides */
-.light {
-  --bg-header: #F1F5F9; 
-  --bg-body: #FFFFFF;
-  --bg-sidebar: #F8FAFC;
-  --bg-module: #E2E8F0; 
-  --bg-card: #F1F5F9;
-  --text-main: #0F172A; 
-  --text-muted: #64748B; 
-  --border-color: #CBD5E1; 
+/* Dark Mode Overrides */
+.dark {
+  --bg-body: #0A192F; 
+  --bg-sidebar: #0F172A; 
+  --bg-header: #0F172A; 
+  --bg-module: #1E293B; 
+  --bg-card: #112240;
+  --text-main: #F1F5F9; 
+  --text-muted: #94A3B8; 
+  --border-main: #1E293B; 
 }
 
 /* Toggled by the parent container in MainLayout */
@@ -43,8 +43,22 @@
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.4s var(--shoji-curve), color 0.4s var(--shoji-curve);
     overflow-x: hidden;
+  }
+
+header {
+    top: 0;
+    margin-top: -1px; 
+    padding-top: 1px;
+    /* This ensures the header background is always solid */
+    background-color: var(--bg-header); 
+  }  
+  
+  /* Standard Scrollbar Theming */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-main) transparent;
   }
 }
 
@@ -66,11 +80,11 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: var(--border-main);
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: var(--text-muted);
   }
 }

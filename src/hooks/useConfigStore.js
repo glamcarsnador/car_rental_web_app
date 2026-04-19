@@ -9,13 +9,11 @@ export const useConfigStore = create(
       
       setTheme: (theme) => {
         set({ theme });
-        // Apply theme class to body for CSS variable shifting
-        if (theme === 'light') {
-          document.body.classList.add('light');
-          document.body.classList.remove('dark');
+        // Apply .dark class to document root for CSS variable shifting
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
         } else {
-          document.body.classList.add('dark');
-          document.body.classList.remove('light');
+          document.documentElement.classList.remove('dark');
         }
       },
       
@@ -23,12 +21,10 @@ export const useConfigStore = create(
         set((state) => {
           const newTheme = state.theme === 'dark' ? 'light' : 'dark';
           // Apply side effect
-          if (newTheme === 'light') {
-            document.body.classList.add('light');
-            document.body.classList.remove('dark');
+          if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
           } else {
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
+            document.documentElement.classList.remove('dark');
           }
           return { theme: newTheme };
         });
@@ -42,10 +38,10 @@ export const useConfigStore = create(
       // Initialize theme on load (side effect for persistence)
       initTheme: () => {
         const saved = JSON.parse(localStorage.getItem('config-storage'))?.state?.theme || 'dark';
-        if (saved === 'light') {
-          document.body.classList.add('light');
+        if (saved === 'dark') {
+          document.documentElement.classList.add('dark');
         } else {
-          document.body.classList.add('dark');
+          document.documentElement.classList.remove('dark');
         }
       }
     }),

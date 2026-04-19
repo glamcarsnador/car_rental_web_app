@@ -13,7 +13,7 @@ export default function MainLayout() {
 
   return (
     <div className={cn(
-      "min-h-screen bg-body-bg text-main-text font-sans transition-all",
+      "min-h-screen bg-body text-main font-sans transition-colors duration-300",
       !isSidebarOpen && "sidebar-collapsed"
     )}>
       {/* Sidebar is fixed to the left */}
@@ -21,11 +21,12 @@ export default function MainLayout() {
 
       {/* Main Container slides using padding */}
       <div
-        className="flex flex-col min-h-screen shoji-slide"
+        className="flex flex-col min-h-screen shoji-slide relative z-10" // Added z-10 here
         style={{ paddingLeft: 'var(--sidebar-width)' }}
       >
         <Header />
 
+        {/* REMOVED 'relative z-0' from main below */}
         <main className="flex-1 p-6 lg:p-10 overflow-x-hidden overflow-y-auto custom-scrollbar">
           <div className="max-w-[1600px] mx-auto w-full">
             <Outlet />
@@ -38,7 +39,7 @@ export default function MainLayout() {
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[60] lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
