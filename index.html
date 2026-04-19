@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/car_rental_web_app/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glam Cars ERP</title>
+
+  <script>
+    // IMMEDIATELY detect theme before painting
+    (function () {
+      try {
+        const saved = JSON.parse(localStorage.getItem('config-storage'));
+        const theme = saved?.state?.theme || 'dark';
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.backgroundColor = '#0A192F'; // Your --bg-body
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.style.backgroundColor = '#F8FAFC'; // Your --bg-body
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <script type="module" crossorigin src="/car_rental_web_app/assets/index-7gRqzBrV.js"></script>
+  <link rel="modulepreload" crossorigin href="/car_rental_web_app/assets/rolldown-runtime-COnpUsM8.js">
+  <link rel="modulepreload" crossorigin href="/car_rental_web_app/assets/vendor-B9vO9iKe.js">
+  <link rel="stylesheet" crossorigin href="/car_rental_web_app/assets/index-Bj0gim0Q.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
