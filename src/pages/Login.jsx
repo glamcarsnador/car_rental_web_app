@@ -27,7 +27,6 @@ export default function Login() {
       }
     });
 
-    if (error) console.error("OAuth Error:", error.message);
   };
   return (
     <div className="min-h-screen bg-body flex items-center justify-center p-4 transition-colors duration-500">
