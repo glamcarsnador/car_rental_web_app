@@ -35,7 +35,6 @@ export default function Header() {
   const { user, profile } = useAuth();
   const { t } = useTranslation();
 
-  // State for Click-based Dropdown
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const currencyRef = useRef(null);
 
@@ -67,24 +66,24 @@ export default function Header() {
   const currentTitle = t(currentTitleKey);
 
   return (
-    <header className="h-[var(--header-h)] bg-header border-b border-border flex items-center justify-between px-6 sticky top-0 z-50 shoji-slide transition-colors duration-300 shadow-md">
+    /* Adjusted pl-1 to move logo slot to the absolute edge */
+    <header className="h-[var(--header-h)] bg-header border-b border-border flex items-center justify-between pl-1 pr-6 sticky top-0 z-50 shoji-slide transition-colors duration-300 shadow-md">
 
       {/* Left Section: Branding */}
-      <div className="flex items-center gap-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-module rounded-lg flex items-center justify-center overflow-hidden shadow-lg border border-border">
-            <img
-              src={logo}
-              alt="Glam Cars"
-              className="w-full h-full object-cover"
-            />
-          </div>
+      <div className="flex items-center gap-4 h-full">
+        {/* The Slot: h-[94%] creates the tiniest possible top/bottom gap */}
+        <div className="h-[94%] w-auto bg-module rounded-lg flex items-center justify-center overflow-hidden border border-border px-2 shadow-sm transition-all">
+          <img
+            src={logo}
+            alt="Glam Cars Logo"
+            /* h-full ensures the image fills the vertical slot entirely */
+            className="h-full w-auto object-contain"
+          />
         </div>
 
-        <div className="h-6 w-px bg-border hidden lg:block" />
-
-        <nav className="hidden lg:flex items-center gap-2 text-xs font-medium text-muted">
-          <span className="text-main capitalize">{currentTitle}</span>
+        {/* Page Title */}
+        <nav className="hidden lg:flex items-center text-xs font-bold text-muted uppercase tracking-widest">
+          <span className="text-main">{currentTitle}</span>
         </nav>
       </div>
 
@@ -93,7 +92,6 @@ export default function Header() {
 
         {/* The Morocco Clock Module */}
         <div className="bg-module border border-border px-4 py-1.5 rounded-xl flex flex-col items-center justify-center min-w-[120px] transition-colors">
-          {/* w-full text-center ensures the inline text is centered in the module */}
           <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5 w-full text-center">
             {format(currentTime, 'EEEE, dd/MM/yyyy')}
           </span>
@@ -125,7 +123,6 @@ export default function Header() {
             <span className="text-[10px] font-bold uppercase">{language}</span>
           </button>
 
-          {/* Opaque Click-Based Currency Dropdown */}
           <div className="relative" ref={currencyRef}>
             <button
               onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
@@ -174,7 +171,6 @@ export default function Header() {
 
         {/* User Stack */}
         <div className="flex items-center gap-3 pl-3 border-l border-border">
-          {/* Parent is flex-col items-end (Block level), child spans are text-center (Inline level) */}
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-[11px] font-bold text-main leading-none mb-0.5 w-full text-center">
               {profile?.full_name || 'Admin'}
