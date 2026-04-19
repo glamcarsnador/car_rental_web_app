@@ -97,21 +97,37 @@ export default function Sidebar() {
 
       {/* Tablet/Mobile Overlay */}
       <aside className={cn(
-        "fixed inset-0 z-50 lg:hidden transition-all duration-300",
-        isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none invisible"
+        "fixed inset-0 z-[100] lg:hidden transition-all duration-300", // High z-index
+        isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        <FocusTrap active={isMobileMenuOpen}>
+        {/* The Foggy Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+
+        <FocusTrap
+          active={isMobileMenuOpen}
+          focusTrapOptions={{
+            fallbackFocus: '#mobile-menu-container',
+            allowOutsideClick: true
+          }}
+        >
           <div
+            id="mobile-menu-container"
+            tabIndex={-1}
             className={cn(
-              "bg-sidebar h-full shadow-2xl transition-transform duration-300 ease-in-out",
+              "relative bg-sidebar h-full shadow-2xl transition-transform duration-300 ease-in-out outline-none",
+              // Force a solid color to ensure it's not transparent
+              "bg-[#1a1c1e]",
               isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
             )}
-            style={{ width: 'var(--sidebar-width)' }}
+            /* If var(--sidebar-width) is missing, it defaults to 280px */
+            style={{ width: 'box-sizing: border-box; width: clamp(280px, 80vw, 320px)' }}
           >
             <NavContent mobile />
           </div>
         </FocusTrap>
-      </aside>
-    </>
+      </aside>    </>
   );
 }
