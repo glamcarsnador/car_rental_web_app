@@ -72,15 +72,9 @@ export default function Header() {
       {/* Left Section: Branding */}
       <div className="flex items-center gap-4 h-full">
         {/* The Slot: h-[94%] creates the tiniest possible top/bottom gap */}
-        <div className="h-[94%] w-auto bg-module rounded-lg flex items-center justify-center overflow-hidden border border-border px-2 shadow-sm transition-all">
-          <img
-            src={logo}
-            alt="Glam Cars Logo"
-            /* h-full ensures the image fills the vertical slot entirely */
-            className="h-full w-auto object-contain"
-          />
+        <div className="h-[94%] w-auto bg-module rounded-lg flex items-center justify-center overflow-hidden px-2 shadow-sm transition-all">
+          <img src={logo} alt="Glam Cars Logo" className="h-full w-auto object-contain" />
         </div>
-
         {/* Page Title */}
         <nav className="hidden lg:flex items-center text-xs font-bold text-muted uppercase tracking-widest">
           <span className="text-main">{currentTitle}</span>
@@ -90,17 +84,21 @@ export default function Header() {
       {/* Right Section: Controls */}
       <div className="flex items-center gap-3">
 
-        {/* The Morocco Clock Module */}
-        <div className="bg-module border border-border px-4 py-1.5 rounded-xl flex flex-col items-center justify-center min-w-[120px] transition-colors">
-          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5 w-full text-center">
+        {/* The Morocco Clock Module - Rigid Alignment Version */}
+        <div className="bg-module border border-border px-4 py-2 rounded-xl flex flex-col items-center justify-center min-w-[140px] transition-all duration-300">
+          {/* Force block display and exact centering */}
+          <span className="block text-[10px] font-bold text-muted uppercase tracking-tighter leading-none text-center w-full whitespace-nowrap">
             {format(currentTime, 'EEEE, dd/MM/yyyy')}
           </span>
-          <span className="text-sm font-black text-main leading-none tabular-nums py-0.5 w-full text-center">
+
+          {/* tabular-nums is key: it prevents the clock from 'jumping' when numbers change */}
+          <span className="block text-sm font-black text-main leading-tight tabular-nums text-center w-full my-0.5">
             {format(currentTime, 'HH:mm')}
           </span>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <div className={cn("w-1.5 h-1.5 rounded-full", isSynced ? "bg-success" : "bg-warning animate-pulse")} />
-            <span className="text-[9px] font-bold text-muted uppercase">{t('morocco')}</span>
+
+          <div className="flex items-center justify-center gap-1.5 w-full">
+            <div className={cn("w-1.5 h-1.5 rounded-full shrink-0", isSynced ? "bg-success" : "bg-warning animate-pulse")} />
+            <span className="text-[9px] font-bold text-muted uppercase tracking-widest">{t('morocco')}</span>
           </div>
         </div>
 
