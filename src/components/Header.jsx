@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import logo from '../assets/logo.jpg';
 import {
   Moon,
   Sun,
@@ -46,7 +47,6 @@ export default function Header() {
     initTimeHeartbeat();
     fetchRates();
 
-    // Correctly handle clicking outside the dropdown
     const handleClickOutside = (event) => {
       if (currencyRef.current && !currencyRef.current.contains(event.target)) {
         setIsCurrencyOpen(false);
@@ -54,8 +54,6 @@ export default function Header() {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    // Fixed cleanup function to prevent "document.remove" error
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -74,12 +72,12 @@ export default function Header() {
       {/* Left Section: Branding */}
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center font-black text-white text-xl shadow-lg shadow-accent/20">
-            G
-          </div>
-          <div className="hidden md:block">
-            <h2 className="text-sm font-bold tracking-tighter uppercase leading-none text-main">Glam Cars</h2>
-            <span className="text-[10px] text-muted font-medium uppercase tracking-widest">{t('industrial_erp')}</span>
+          <div className="w-10 h-10 bg-module rounded-lg flex items-center justify-center overflow-hidden shadow-lg border border-border">
+            <img
+              src={logo}
+              alt="Glam Cars"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
@@ -95,10 +93,11 @@ export default function Header() {
 
         {/* The Morocco Clock Module */}
         <div className="bg-module border border-border px-4 py-1.5 rounded-xl flex flex-col items-center justify-center min-w-[120px] transition-colors">
-          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5">
+          {/* w-full text-center ensures the inline text is centered in the module */}
+          <span className="text-[10px] font-bold text-muted uppercase tracking-tighter leading-none mb-0.5 w-full text-center">
             {format(currentTime, 'EEEE, dd/MM/yyyy')}
           </span>
-          <span className="text-sm font-black text-main leading-none tabular-nums py-0.5">
+          <span className="text-sm font-black text-main leading-none tabular-nums py-0.5 w-full text-center">
             {format(currentTime, 'HH:mm')}
           </span>
           <div className="flex items-center gap-1.5 mt-0.5">
@@ -109,7 +108,6 @@ export default function Header() {
 
         {/* Action Toggles Cluster */}
         <div className="flex items-center gap-1 bg-module/50 p-1 rounded-xl border border-border">
-          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="p-2 text-muted hover:text-accent hover:bg-module rounded-lg transition-all"
@@ -118,7 +116,6 @@ export default function Header() {
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
-          {/* Language Toggle */}
           <button
             onClick={toggleLanguage}
             className="px-2 py-1.5 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-1.5"
@@ -142,16 +139,14 @@ export default function Header() {
               <ChevronDown size={12} className={cn("transition-transform duration-200", isCurrencyOpen && "rotate-180")} />
             </button>
 
-            {/* Opaque Dropdown Menu */}
             {isCurrencyOpen && (
               <div
                 className={cn(
                   "absolute right-0 top-full mt-2 min-w-[100px] z-[70] p-1",
                   "rounded-xl border border-border shadow-2xl",
                   "animate-in fade-in zoom-in-95 duration-200",
-                  "bg-header" // Ensure this is definitely here
+                  "bg-header"
                 )}
-                /* Inline style as a safety fallback to your variable */
                 style={{ backgroundColor: 'var(--bg-header)' }}
               >
                 {['MAD', 'EUR', 'USD'].map(curr => (
@@ -179,11 +174,12 @@ export default function Header() {
 
         {/* User Stack */}
         <div className="flex items-center gap-3 pl-3 border-l border-border">
+          {/* Parent is flex-col items-end (Block level), child spans are text-center (Inline level) */}
           <div className="hidden sm:flex flex-col items-end">
-            <span className="text-[11px] font-bold text-main leading-none mb-0.5">
+            <span className="text-[11px] font-bold text-main leading-none mb-0.5 w-full text-center">
               {profile?.full_name || 'Admin'}
             </span>
-            <span className="text-[9px] font-medium text-muted uppercase tracking-tighter">
+            <span className="text-[9px] font-medium text-muted uppercase tracking-tighter w-full text-center">
               {profile?.is_whitelisted ? t('verified') : t('agent')}
             </span>
           </div>
