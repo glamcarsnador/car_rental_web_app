@@ -32,7 +32,7 @@ const routeToKey = {
 
 export default function Header() {
   const location = useLocation();
-  const { user, profile } = useAuth();
+  const { user, profile, toggleMobileMenu } = useAuth();
   const { t } = useTranslation();
 
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
@@ -71,6 +71,14 @@ export default function Header() {
 
       {/* Left Section: Branding */}
       <div className="flex items-center gap-4 h-full">
+
+        <button
+          onClick={toggleMobileMenu}
+          className="lg:hidden p-2 mr-2 text-muted hover:text-main"
+        >
+          <Menu size={24} />
+        </button>
+
         {/* Add 'shrink-0' here to lock the logo size */}
         <div className="h-[94%] w-auto shrink-0 bg-module rounded-lg flex items-center justify-center overflow-hidden px-2 shadow-sm transition-all">
           <img
@@ -89,13 +97,13 @@ export default function Header() {
       <div className="flex items-center gap-3">
 
         {/* The Morocco Clock Module - Rigid Alignment Version */}
-        <div className="bg-module border border-border px-4 py-2 rounded-xl flex flex-col items-center justify-center min-w-[140px] transition-all duration-300">
-          {/* Force block display and exact centering */}
+        {/* The Morocco Clock Module - Hidden on mobile, Flex on Desktop (lg) */}
+        <div className="hidden lg:flex bg-module border border-border px-4 py-2 rounded-xl flex-col items-center justify-center min-w-[140px] transition-all duration-300">
+
           <span className="block text-[10px] font-bold text-muted uppercase tracking-tighter leading-none text-center w-full whitespace-nowrap">
             {format(currentTime, 'EEEE, dd/MM/yyyy')}
           </span>
 
-          {/* tabular-nums is key: it prevents the clock from 'jumping' when numbers change */}
           <span className="block text-sm font-black text-main leading-tight tabular-nums text-center w-full my-0.5">
             {format(currentTime, 'HH:mm')}
           </span>
@@ -105,7 +113,6 @@ export default function Header() {
             <span className="text-[9px] font-bold text-muted uppercase tracking-widest">{t('morocco')}</span>
           </div>
         </div>
-
         {/* Action Toggles Cluster */}
         <div className="flex items-center gap-1 bg-module/50 p-1 rounded-xl border border-border">
           <button

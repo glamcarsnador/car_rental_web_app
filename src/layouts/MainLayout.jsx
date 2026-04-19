@@ -24,20 +24,17 @@ export default function MainLayout() {
 
   return (
     <div className={cn(
-      "min-h-screen bg-body text-main font-sans", // SNAPPY
+      "min-h-screen bg-body text-main font-sans overflow-x-hidden",
       !isSidebarOpen && "sidebar-collapsed"
     )}>
-      {/* Sidebar is fixed to the left */}
       <Sidebar />
 
-      {/* Main Container slides using padding */}
-      <div
-        className="flex flex-col min-h-screen shoji-slide relative z-10"
-        style={{ paddingLeft: 'var(--sidebar-width)' }}
-      >
+      {/* Remove the style={{ paddingLeft }} and use lg:pl-[var(--sidebar-width)] */}
+      <div className="flex flex-col min-h-screen shoji-slide relative z-10 lg:pl-[var(--sidebar-width)]">
         <Header />
 
-        <main className="flex-1 p-6 lg:p-10 overflow-x-hidden overflow-y-auto custom-scrollbar">
+        {/* Adjusted padding for mobile (p-4) vs desktop (p-10) */}
+        <main className="flex-1 p-4 md:p-6 lg:p-10 overflow-x-hidden overflow-y-auto custom-scrollbar">
           <div className="max-w-[1600px] mx-auto w-full">
             <Outlet />
           </div>
@@ -46,7 +43,7 @@ export default function MainLayout() {
         <Footer />
       </div>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay - Ensure it's active */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"

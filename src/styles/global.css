@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --sidebar-width: 240px;
+--sidebar-width: 0px; 
   --shoji-curve: cubic-bezier(0.4, 0, 0.2, 1);
   --header-h: 80px;
 
@@ -24,6 +24,16 @@
   --danger: #EF4444;
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+  
+  .sidebar-collapsed {
+    --sidebar-width: 80px;
+  }
+}
+
 /* Dark Mode Overrides */
 .dark {
   --bg-body: #0A192F; 
@@ -41,10 +51,6 @@
   --danger: #DC2626;
 }
 
-/* Toggled by the parent container in MainLayout */
-.sidebar-collapsed {
-  --sidebar-width: 80px;
-}
 
 @layer base {
   html, body {
