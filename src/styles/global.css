@@ -8,11 +8,11 @@
   --header-h: 80px;
 
   /* Industrial Palette - Light Mode (Source of Truth) */
-  --bg-body: #F8FAFC; 
-  --bg-sidebar: #FFFFFF;
-  --bg-header: #FFFFFF;
+  --bg-body: #F5F5F5; 
+  --bg-sidebar: #F5F5F5;
+  --bg-header: #F5F5F5;
   --bg-module: #E2E8F0; 
-  --bg-card: #FFFFFF;
+  --bg-card: #F5F5F5;
   --text-main: #0F172A; 
   --text-muted: #64748B; 
   --border-main: #E2E8F0; 
