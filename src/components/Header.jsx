@@ -71,7 +71,7 @@ export default function Header() {
   const currentTitle = t(currentTitleKey);
 
   return (
-    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md overflow-x-auto no-scrollbar after:absolute after:right-0 after:top-0 after:h-full after:w-12 after:bg-gradient-to-l after:from-header after:to-transparent after:pointer-events-none">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
+    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md overflow-x-auto no-scrollbar">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
 
       {/* Left Section: Branding & Page Link */}
       <div className="flex items-center gap-2 shrink-0">
@@ -86,7 +86,8 @@ export default function Header() {
           <img src={logo} alt="Logo" className="h-full w-auto object-contain" />
         </div>
 
-        <nav className="shrink-0 ml-2">
+        {/* FIXED: Added a min-width to prevent the Toggle Section from jumping */}
+        <nav className="shrink-0 ml-2 min-w-[120px] sm:min-w-[160px]">
           <span className="text-xs font-bold text-main uppercase tracking-widest whitespace-nowrap">
             {currentTitle}
           </span>
