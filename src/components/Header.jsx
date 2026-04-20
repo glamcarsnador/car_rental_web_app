@@ -71,7 +71,7 @@ export default function Header() {
   const currentTitle = t(currentTitleKey);
 
   return (
-    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md overflow-x-auto no-scrollbar">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
+    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
 
       {/* Left Section: Branding & Page Link */}
       <div className="flex items-center gap-2 shrink-0">
