@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
 import {
@@ -42,6 +43,7 @@ export default function Header() {
   // ---------------------------
 
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
   const currencyRef = useRef(null);
   const { currentTime } = useTimeStore();
   const { theme, toggleTheme, language, toggleLanguage } = useConfigStore();
@@ -63,6 +65,36 @@ export default function Header() {
     };
   }, [fetchRates]);
 
+  useEffect(() => {
+    if (isCurrencyOpen && currencyRef.current) {
+      const updateCoords = () => {
+        const rect = currencyRef.current.getBoundingClientRect();
+        setCoords({
+          top: rect.bottom + 8,
+          left: rect.right - 100 // min-w is 100px
+        });
+      };
+      updateCoords();
+      window.addEventListener('resize', updateCoords);
+      window.addEventListener('scroll', updateCoords, true);
+      return () => {
+        window.removeEventListener('resize', updateCoords);
+        window.removeEventListener('scroll', updateCoords, true);
+      };
+    }
+  }, [isCurrencyOpen]);
+
+  const handleCurrencyToggle = () => {
+    if (!isCurrencyOpen && currencyRef.current) {
+      const rect = currencyRef.current.getBoundingClientRect();
+      setCoords({
+        top: rect.bottom + 8,
+        left: rect.right - 100
+      });
+    }
+    setIsCurrencyOpen(!isCurrencyOpen);
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
@@ -71,7 +103,7 @@ export default function Header() {
   const currentTitle = t(currentTitleKey);
 
   return (
-    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
+    <header className="h-[var(--header-h)] bg-header border-b border-border sticky top-0 z-50 transition-colors duration-300 shadow-md overflow-x-auto no-scrollbar">      <div className="flex items-center justify-between min-w-max h-full pl-1 pr-6">
 
       {/* Left Section: Branding & Page Link */}
       <div className="flex items-center gap-2 shrink-0">
@@ -121,7 +153,7 @@ export default function Header() {
           {/* Currency Toggle */}
           <div className="relative shrink-0" ref={currencyRef}>
             <button
-              onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
+              onClick={handleCurrencyToggle}
               className={cn(
                 "min-w-max px-3 h-10 rounded-lg transition-all flex items-center gap-2",
                 isCurrencyOpen ? "bg-accent/10 text-accent" : "text-muted hover:text-accent hover:bg-module"
@@ -133,8 +165,14 @@ export default function Header() {
             </button>
 
             {/* Currency Dropdown stays the same, it will float over the scrollable area */}
-            {isCurrencyOpen && (
-              <div className="absolute right-0 top-full mt-2 min-w-[100px] z-[70] p-1 rounded-xl border border-border shadow-2xl bg-header">
+            {isCurrencyOpen && createPortal(
+              <div 
+                className="fixed z-[9999] min-w-[100px] p-1 rounded-xl border border-border shadow-2xl bg-header animate-in fade-in zoom-in duration-200"
+                style={{ 
+                  top: `${coords.top}px`, 
+                  left: `${coords.left}px` 
+                }}
+              >
                 {['MAD', 'EUR', 'USD'].map(curr => (
                   <button
                     key={curr}
@@ -150,7 +188,8 @@ export default function Header() {
                     {curr}
                   </button>
                 ))}
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         </div>
