@@ -98,27 +98,61 @@ export default function Header() {
       <div className="flex items-center gap-3 shrink-0 ml-8">
 
         {/* Toggles Cluster */}
-        <div className="flex items-center gap-1 bg-module/50 p-1 rounded-xl border border-border shrink-0">
-          <button onClick={toggleTheme} className="p-2 text-muted shrink-0">
+        {/* Toggles Cluster */}
+        <div className="flex items-center bg-module/50 p-1 rounded-xl border border-border shrink-0">
+          {/* Theme Toggle - Fixed width square for symmetry */}
+          <button
+            onClick={toggleTheme}
+            className="w-10 h-10 flex items-center justify-center text-muted hover:text-accent hover:bg-module rounded-lg transition-all shrink-0"
+          >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
-          <button onClick={toggleLanguage} className="px-2 py-1.5 text-muted flex items-center gap-1 shrink-0">
-            <Globe size={16} />
+          {/* Language Toggle - min-w-max ensures the text 'EN/FR' never touches the Globe icon */}
+          <button
+            onClick={toggleLanguage}
+            className="min-w-max px-3 h-10 text-muted hover:text-accent hover:bg-module rounded-lg transition-all flex items-center gap-2 shrink-0"
+          >
+            <Globe size={16} className="shrink-0" />
             <span className="text-[10px] font-bold uppercase whitespace-nowrap">{language}</span>
           </button>
 
+          {/* Currency Toggle */}
           <div className="relative shrink-0" ref={currencyRef}>
             <button
               onClick={() => setIsCurrencyOpen(!isCurrencyOpen)}
-              className="px-2 py-1.5 text-muted flex items-center gap-1"
+              className={cn(
+                "min-w-max px-3 h-10 rounded-lg transition-all flex items-center gap-2",
+                isCurrencyOpen ? "bg-accent/10 text-accent" : "text-muted hover:text-accent hover:bg-module"
+              )}
             >
-              <Coins size={16} />
+              <Coins size={16} className="shrink-0" />
               <span className="text-[10px] font-bold whitespace-nowrap">{selectedCurrency}</span>
+              <ChevronDown size={12} className={cn("transition-transform duration-200", isCurrencyOpen && "rotate-180")} />
             </button>
+
+            {/* Currency Dropdown stays the same, it will float over the scrollable area */}
+            {isCurrencyOpen && (
+              <div className="absolute right-0 top-full mt-2 min-w-[100px] z-[70] p-1 rounded-xl border border-border shadow-2xl bg-header">
+                {['MAD', 'EUR', 'USD'].map(curr => (
+                  <button
+                    key={curr}
+                    onClick={() => {
+                      setSelectedCurrency(curr);
+                      setIsCurrencyOpen(false);
+                    }}
+                    className={cn(
+                      "w-full text-left px-3 py-2 text-[10px] font-bold rounded-lg transition-colors",
+                      selectedCurrency === curr ? "bg-accent/10 text-accent" : "text-muted hover:bg-module"
+                    )}
+                  >
+                    {curr}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-
         {/* User Info & Logout (Rigidly together) */}
         <div className="flex items-center gap-3 pl-3 border-l border-border shrink-0">
           <div className="flex flex-col items-end shrink-0">
